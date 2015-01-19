@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Simulacion Bolos</title>
+    <script type="text/javascript" src="./libs/three.js"></script>
+    <script type="text/javascript" src="./libs/jquery-1.9.0.js"></script>
+    <script src="js/loaders/OBJLoader.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
+
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
+
+    // once everything is loaded, we run our Three.js stuff.
+    $(function () {
+
+        var manager = new THREE.LoadingManager();
+                manager.onProgress = function ( item, loaded, total ) {
+
+                    console.log( item, loaded, total );
+
+                };
+
+                var texture = new THREE.Texture();
+
+                var onProgress = function ( xhr ) {
+                    if ( xhr.lengthComputable ) {
+                        var percentComplete = xhr.loaded / xhr.total * 100;
+                        console.log( Math.round(percentComplete, 2) + '% downloaded' );
+                    }
+                };
+
+                var onError = function ( xhr ) {
+                };
+
+
+                var loader = new THREE.ImageLoader( manager );
+                loader.load( 'textures/UV_Grid_Sm.jpg', function ( image ) {
+
+                    texture.image = image;
+                    texture.needsUpdate = true;
+
+                } );
+
+                // model
+
+                var loader = new THREE.OBJLoader( manager );
+                loader.load( 'obj/bowling/bowling.obj', function ( object ) {
+
+                    
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {
+
+                            child.material.map = texture;
+
+                        }
+
+                    } );
+
+                    object.position.y = 0;//- 80;
+                    object.position.z = -30;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+                //
+
+        //var stats = initStats();
+
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // create a render and set the size
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+       
+
+        var clock = new THREE.Clock();
+
+        // create the ground plane
+        var floortexture = new THREE.ImageUtils.loadTexture('Wood-Wallpaper.jpg');
+        var planeGeometry = new THREE.PlaneGeometry(110, 110, 1, 1);
+        var planeMaterial = new THREE.MeshBasicMaterial({map: floortexture, side: THREE.Doubleside });
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+
+  
+        // rotate and position the plane
+        plane.rotation.x = -0.5 * Math.PI;
+        plane.position.x = 0
+        plane.position.y = 0
+        plane.position.z = 0
+
+        // add the plane to the scene
+        scene.add(plane);
+
+        // create a cube
+        var cubeGeometry = new THREE.CubeGeometry(4, 4, 4);
+        var cubeTexture = new THREE.ImageUtils.loadTexture('bolo.png');
+        var cubeMaterial = new THREE.MeshBasicMaterial({map: cubeTexture });
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        var cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+
+        // position the cube
+        cube.position.x = -9;
+        cube.position.y = 2;
+        cube.position.z = -1;
+
+// position the cube
+        cube2.position.x=-9;
+        cube2.position.y=6;
+        cube2.position.z=2;
+
+// position the cube
+        cube3.position.x=-9;
+        cube3.position.y=2;
+        cube3.position.z=5;
+
+        // add the cube to the scene
+        scene.add(cube);
+        scene.add(cube2);
+        scene.add(cube3);
+        
+        //create fondo
+        var cubeGeometry2 = new THREE.CubeGeometry(110, 30, 2);
+        
+        var fondoTexture = new THREE.ImageUtils.loadTexture('fondo.jpg');
+        var fondoMaterial = new THREE.MeshBasicMaterial({map: fondoTexture });
+        var fondo = new THREE.Mesh(cubeGeometry2.clone(), fondoMaterial);
+        
+        fondo.position.x = -40;
+        fondo.position.y = 15;
+        fondo.position.z = 0;
+        fondo.rotation.y = Math.PI/90 * 45;
+        scene.add(fondo);
+        
+        //create fondo2
+        var cubeGeometry3 = new THREE.CubeGeometry(100, 30, 2);
+        
+        var fondoTexture = new THREE.ImageUtils.loadTexture('fondo3.jpg');
+        var fondoMaterial = new THREE.MeshBasicMaterial({map: fondoTexture });
+        var fondo2 = new THREE.Mesh(cubeGeometry3.clone(), fondoMaterial);
+        
+        fondo2.position.x = 0;
+        fondo2.position.y = 15;
+        fondo2.position.z = -55;
+        //fondo.rotation.y = Math.PI/90 * 45;
+        scene.add(fondo2);
+
+//create sphere
+
+         var bolitaTexture = new THREE.ImageUtils.loadTexture('bola.png');
+         var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+         var sphereMaterial = new THREE.MeshBasicMaterial({map: bolitaTexture, side: THREE.Doubleside });
+         var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+        // position the sphere
+        sphere.position.x = 0;
+        sphere.position.y = 4;
+        sphere.position.z = 30;
+        // add the sphere to the scene
+        scene.add(sphere);
+
+
+
+
+        // position and point the camera to the center of the scene
+        camera.position.x = 55;
+        camera.position.y = 30;
+        camera.position.z = 40;
+        camera.lookAt(scene.position);
+
+        // add subtle ambient lighting
+        var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+        scene.add(ambientLight);
+
+        // add spotlight for the shadows
+        var spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(90, 60, 10);
+
+        scene.add(spotLight);
+
+        // add the output of the renderer to the html element
+        $("#WebGL-output").append(renderer.domElement);
+
+        // call the render function
+        var step = 0;
+        var scalingStep = 0;
+
+        var controls = new function () {
+            this.rotationSpeed = 0.02;
+            this.bouncingSpeed = 0.07;
+            //this.scalingSpeed = 0.03;
+        }
+
+
+
+        render();
+
+        function render() {
+            var delta = clock.getDelta();
+
+/*
+            // bounce the sphere up and down
+            step += controls.bouncingSpeed;
+            if(sphere.position.x > -4){ 
+                sphere.rotation.z -= 50+ controls.rotationSpeed;
+           
+                sphere.position.x = 20 - (10*(step));//Math.abs( 50 * (Math.cos(step)));
+                
+            }
+            
+            if(sphere.position.x <= -4 && cube.position.x >= -37) {
+
+                cube3.position.x = -5 -(2*(step));
+                cube3.position.z = 4 +(0.5*(step));
+                      
+                cube.position.x = -5 -(2.5*(step));
+                cube.position.z = 1 -(0.5*(step));
+                
+                cube2.position.x = -5 -(2.5*(step));
+                cube2.rotation.z = 0.37 * (step);
+                cube2.position.y = 6 - (0.27* step);
+
+            }   
+
+       
+
+*/
+
+            // render using requestAnimationFrame
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+
+        }
+
+
+    });
+
+
+</script>
+</body>
+</html>
