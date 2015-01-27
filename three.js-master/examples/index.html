@@ -7,6 +7,13 @@
     <script type="text/javascript" src="./libs/three.js"></script>
     <script type="text/javascript" src="./libs/jquery-1.9.0.js"></script>
     <script src="js/loaders/OBJLoader.js"></script>
+
+<!--
+        <script src="js/loaders/DDSLoader.js"></script>
+        <script src="js/loaders/MTLLoader.js"></script>
+        <script src="js/loaders/OBJMTLLoader.js"></script>
+-->
+
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -48,38 +55,222 @@
                 };
 
 
-                var loader = new THREE.ImageLoader( manager );
-                loader.load( 'textures/UV_Grid_Sm.jpg', function ( image ) {
+   
 
-                    texture.image = image;
-                    texture.needsUpdate = true;
 
-                } );
 
-                // model
+/*
+ ----------------------------------------------------------------------------------------------------------- 
+ -----------------------------------------------------------------------------------------------------------
+         BOLOS            BOLOS            BOLOS            BOLOS            BOLOS            BOLOS     
+ ----------------------------------------------------------------------------------------------------------- 
+ -----------------------------------------------------------------------------------------------------------
+ */
+
+ var bloqueXbolos = -4;
+ var bloqueZbolos = -10;
+ var bloqueYbolos = 0;
+
+
+/*
+var bolo1 = new THREE.OBJMTLLoader();
+    bolo1.load( 'obj/bowling/bolo.obj', 'obj/bowling/bolo.mtl', function ( object ) {
+
+                    object.position.x = 0 + bloqueXbolos;//- 80;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -30 + bloqueZbolos;
+                    scene.add( object );
+
+                }, onProgress, onError );
+*/
+
+                // Bolo1
 
                 var loader = new THREE.OBJLoader( manager );
-                loader.load( 'obj/bowling/bowling.obj', function ( object ) {
+                loader.load( 'obj/bowling/bolo.obj', function ( object ) {
 
-                    
                     object.traverse( function ( child ) {
 
-                        if ( child instanceof THREE.Mesh ) {
-
-                            child.material.map = texture;
-
-                        }
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
 
                     } );
 
-                    object.position.y = 0;//- 80;
-                    object.position.z = -30;
+                    object.position.x = 0 + bloqueXbolos;//- 80;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -30 + bloqueZbolos;
                     
                     scene.add( object );
 
                 }, onProgress, onError );
 
-                //
+                //bolo2
+
+                var bolo2 = new THREE.OBJLoader( manager );
+                bolo2.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 6 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -30 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+
+                //bolo3
+
+                var bolo3 = new THREE.OBJLoader( manager );
+                bolo3.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 12 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -30 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+                //bolo4
+
+                var bolo4 = new THREE.OBJLoader( manager );
+                bolo4.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 18 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -30 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+                //bolo5
+
+                var bolo5 = new THREE.OBJLoader( manager );
+                bolo5.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 3 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -26 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+                
+                var bolo6 = new THREE.OBJLoader( manager );
+                bolo6.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 9 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -26 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+
+                var bolo7 = new THREE.OBJLoader( manager );
+                bolo7.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 15 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -26 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+                
+                var bolo8 = new THREE.OBJLoader( manager );
+                bolo8.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 6 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -22 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+                
+
+                var bolo9 = new THREE.OBJLoader( manager );
+                bolo9.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 12 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -22 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );
+
+                var bolo10 = new THREE.OBJLoader( manager );
+                bolo10.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                    object.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {child.material.map = texture;}
+
+                    } );
+                    object.position.x = 9 + bloqueXbolos;
+                    object.position.y = 0 + bloqueYbolos;//- 80;
+                    object.position.z = -18 + bloqueZbolos;
+                    
+                    scene.add( object );
+
+                }, onProgress, onError );                
+  
+
+/*
+ ----------------------------------------------------------------------------------------------------------- 
+ -----------------------------------------------------------------------------------------------------------
+         FIN BOLOS            FIN BOLOS            FIN BOLOS            FIN BOLOS            FIN BOLOS     
+ ----------------------------------------------------------------------------------------------------------- 
+ -----------------------------------------------------------------------------------------------------------
+ */
+
+
+
+
+
 
         //var stats = initStats();
 
@@ -100,7 +291,7 @@
         var clock = new THREE.Clock();
 
         // create the ground plane
-        var floortexture = new THREE.ImageUtils.loadTexture('Wood-Wallpaper.jpg');
+        var floortexture = new THREE.ImageUtils.loadTexture('fondoCarriles.jpg');
         var planeGeometry = new THREE.PlaneGeometry(110, 110, 1, 1);
         var planeMaterial = new THREE.MeshBasicMaterial({map: floortexture, side: THREE.Doubleside });
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -116,34 +307,7 @@
         // add the plane to the scene
         scene.add(plane);
 
-        // create a cube
-        var cubeGeometry = new THREE.CubeGeometry(4, 4, 4);
-        var cubeTexture = new THREE.ImageUtils.loadTexture('bolo.png');
-        var cubeMaterial = new THREE.MeshBasicMaterial({map: cubeTexture });
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        var cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
-
-        // position the cube
-        cube.position.x = -9;
-        cube.position.y = 2;
-        cube.position.z = -1;
-
-// position the cube
-        cube2.position.x=-9;
-        cube2.position.y=6;
-        cube2.position.z=2;
-
-// position the cube
-        cube3.position.x=-9;
-        cube3.position.y=2;
-        cube3.position.z=5;
-
-        // add the cube to the scene
-        scene.add(cube);
-        scene.add(cube2);
-        scene.add(cube3);
         
         //create fondo
         var cubeGeometry2 = new THREE.CubeGeometry(110, 30, 2);
@@ -174,14 +338,14 @@
 //create sphere
 
          var bolitaTexture = new THREE.ImageUtils.loadTexture('bola.png');
-         var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+         var sphereGeometry = new THREE.SphereGeometry(3.5, 10, 10);
          var sphereMaterial = new THREE.MeshBasicMaterial({map: bolitaTexture, side: THREE.Doubleside });
          var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 
         // position the sphere
-        sphere.position.x = 0;
+        sphere.position.x = 9;
         sphere.position.y = 4;
-        sphere.position.z = 30;
+        sphere.position.z = 35;
         // add the sphere to the scene
         scene.add(sphere);
 
@@ -223,34 +387,6 @@
 
         function render() {
             var delta = clock.getDelta();
-
-/*
-            // bounce the sphere up and down
-            step += controls.bouncingSpeed;
-            if(sphere.position.x > -4){ 
-                sphere.rotation.z -= 50+ controls.rotationSpeed;
-           
-                sphere.position.x = 20 - (10*(step));//Math.abs( 50 * (Math.cos(step)));
-                
-            }
-            
-            if(sphere.position.x <= -4 && cube.position.x >= -37) {
-
-                cube3.position.x = -5 -(2*(step));
-                cube3.position.z = 4 +(0.5*(step));
-                      
-                cube.position.x = -5 -(2.5*(step));
-                cube.position.z = 1 -(0.5*(step));
-                
-                cube2.position.x = -5 -(2.5*(step));
-                cube2.rotation.z = 0.37 * (step);
-                cube2.position.y = 6 - (0.27* step);
-
-            }   
-
-       
-
-*/
 
             // render using requestAnimationFrame
             renderer.render(scene, camera);
