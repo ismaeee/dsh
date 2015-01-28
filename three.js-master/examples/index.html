@@ -7,6 +7,8 @@
     <script type="text/javascript" src="./libs/three.js"></script>
     <script type="text/javascript" src="./libs/jquery-1.9.0.js"></script>
     <script src="js/loaders/OBJLoader.js"></script>
+    <script src="js/Keyboard.js"></script>
+    
 
 <!--
         <script src="js/loaders/DDSLoader.js"></script>
@@ -20,20 +22,97 @@
             margin: 0;
             overflow: hidden;
         }
+
+        body, section,div { margin:0px; padding:0px;}
+
+        header{
+                position: relative;
+                color:black;
+                height: 0px;
+                padding-left: 30px; 
+
+        }
+        h1{
+            margin-top: 0px;
+
+            padding-top: 400px;
+            padding-right: 30%;
+            text-align: right;
+            color:silver;
+        }
+
+        a{
+            color:silver;
+            text-decoration: none;
+            padding: 10px 20px 10px 20px;
+            background-color: black;
+            font-weight: bolder;
+            border-radius: 3px;
+            font-size: 20px;
+        }
+
+        .enlace{
+            padding-top: 30px;
+        }
+
+    #progressbar{
+        background-color: green;
+        width: 250px;
+        height: 20px;
+        margin-left:10px;
+        position:absolute;
+        z-index:100;
+        display: inline-block;
+        text-align: center;
+        margin-top: -1px;
+    }
+    #xa{
+        padding-left: 65%;
+
+    }
+
+
     </style>
 </head>
 <body>
 
+<!--
+
+
+-->
+
 
 <!-- Div which will hold the Output -->
-<div id="WebGL-output">
-</div>
 
+<header>
+    <div class="enlace"><a href="https://dsh2015-threejs.rhcloud.com/"> Volver </a></div>
+    <div class="enlace"><a href="http://localhost:8000/Desktop/GitHub/three.js-master/examples/"> Reiniciar </a></div>
+
+    <h1 id="Potencia"></h1>
+
+</header>
+<section>
+
+        <div class="WebGL-output" id="contenedor"></div>
+
+</section>
 <!-- Javascript code that runs our Three.js examples -->
 <script type="text/javascript">
 
+    
     // once everything is loaded, we run our Three.js stuff.
+    var flag = false;
+    var sphere;
+    var scene;
+    var potencia = 1;
+    var empiezaTirar = false;
+    var tirar = false;
+    var resistencia = 0;
+    var sonido = false;
+
+
     $(function () {
+
 
         var manager = new THREE.LoadingManager();
                 manager.onProgress = function ( item, loaded, total ) {
@@ -84,10 +163,17 @@ var bolo1 = new THREE.OBJMTLLoader();
                 }, onProgress, onError );
 */
 
+
+
+
+
+
+
                 // Bolo1
 
-                var loader = new THREE.OBJLoader( manager );
-                loader.load( 'obj/bowling/bolo.obj', function ( object ) {
+
+                var bolo1 = new THREE.OBJLoader( manager );
+                bolo1.load( 'obj/bowling/bolo.obj', function ( object ) {
 
                     object.traverse( function ( child ) {
 
@@ -102,6 +188,9 @@ var bolo1 = new THREE.OBJMTLLoader();
                     scene.add( object );
 
                 }, onProgress, onError );
+
+
+
 
                 //bolo2
 
@@ -275,7 +364,7 @@ var bolo1 = new THREE.OBJMTLLoader();
         //var stats = initStats();
 
         // create a scene, that will hold all our elements such as objects, cameras and lights.
-        var scene = new THREE.Scene();
+        scene = new THREE.Scene();
 
         // create a camera, which defines where we're looking at.
         var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -337,18 +426,19 @@ var bolo1 = new THREE.OBJMTLLoader();
 
 //create sphere
 
-         var bolitaTexture = new THREE.ImageUtils.loadTexture('bola.png');
+         var bolitaTexture = new THREE.ImageUtils.loadTexture('capitanamericaF.jpg');
          var sphereGeometry = new THREE.SphereGeometry(3.5, 10, 10);
-         var sphereMaterial = new THREE.MeshBasicMaterial({map: bolitaTexture, side: THREE.Doubleside });
-         var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+         var sphereMaterial = new THREE.MeshBasicMaterial({map: bolitaTexture});
+         sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 
         // position the sphere
-        sphere.position.x = 9;
+        sphere.position.x = 5;
         sphere.position.y = 4;
         sphere.position.z = 35;
         // add the sphere to the scene
         scene.add(sphere);
 
+  
 
 
 
@@ -369,7 +459,7 @@ var bolo1 = new THREE.OBJMTLLoader();
         scene.add(spotLight);
 
         // add the output of the renderer to the html element
-        $("#WebGL-output").append(renderer.domElement);
+        $(".WebGL-output").append(renderer.domElement);
 
         // call the render function
         var step = 0;
@@ -381,12 +471,89 @@ var bolo1 = new THREE.OBJMTLLoader();
             //this.scalingSpeed = 0.03;
         }
 
-
+        //document.addEventListener( 'mousemove', playerPaddleMovement, false );
 
         render();
 
+        function moverBola()
+                        {
+
+                            //  mueve bola Arriba
+                            if (Key.isDown(Key.A))      
+                            {
+                                
+                                if (sphere.position.x > -10 )
+                                {
+                                    console.log("Presionado A ");
+                                    console.log(sphere.position.x);
+                                    sphere.position.x -= ( 0.5);
+                                }
+                                
+                            }   
+                            // mueve bola Abajo
+                            else if (Key.isDown(Key.D) )
+                            {
+                                if (sphere.position.x < 15)
+                                {
+                                    console.log("Presionado D ");
+                                    console.log(sphere.position.x);
+                                    sphere.position.x += ( 0.5);
+                                }
+                            }
+                            else if (Key.isDown(Key.SPACE) && !tirar )
+                            {
+                                empiezaTirar = true;
+ 
+                                if(potencia > 97){
+                                    flag = true;
+                                }else if(potencia <= 11){
+                                    flag =false;
+                                }
+
+                                if(!flag){
+                                    potencia += 2;
+                                }else{
+                                    potencia -= 2;
+                                }
+
+                                    
+                                    console.log("Presionado SPACE ");
+                                    $("#Potencia").text('Potencia: '+potencia);
+                                
+                            }
+                            else if (!Key.isDown(Key.SPACE) && empiezaTirar){
+                                tirar = true;
+                            }
+
+
+
+        }
+
+
         function render() {
-            var delta = clock.getDelta();
+            //var delta = clock.getDelta();
+            moverBola();
+
+            if(tirar){
+                sphere.position.z -= potencia*0.02;
+                sphere.rotation.x -= 0.004*potencia*Math.random();
+                sphere.rotation.z -= 0.002*potencia*Math.random();
+                /*
+                //resistencia ... de momento na
+                if( (sphere.position.z + ((resistencia+0.002)*1.001 )) > (sphere.position.z + (potencia/0.02))){
+                    resistencia += 0.002;
+                    resistencia *= 1.001;
+                    sphere.position.z += resistencia;
+                }
+                 */
+
+            }
+
+            if (sphere.position.z <= -19 && !sonido){
+                sonido = true;
+                var snd = new Audio("bolos.mp3"); // buffers automatically when created
+                snd.play();
+            }
 
             // render using requestAnimationFrame
             renderer.render(scene, camera);
