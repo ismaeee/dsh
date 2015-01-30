@@ -1,0 +1,52 @@
+body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body, section,div { margin:0px; padding:0px;}
+
+        header{
+                position: relative;
+                color:black;
+                height: 0px;
+                padding-left: 30px; 
+
+        }
+        h1{
+            margin-top: 0px;
+
+            padding-top: 400px;
+            padding-right: 30%;
+            text-align: right;
+            color:silver;
+        }
+
+        a{
+            color:silver;
+            text-decoration: none;
+            padding: 10px 20px 10px 20px;
+            background-color: black;
+            font-weight: bolder;
+            border-radius: 3px;
+            font-size: 20px;
+        }
+
+        .enlace{
+            padding-top: 30px;
+        }
+
+    /* Por ahora hecho con porcentaje
+    #progressbar{
+        background-color: green;
+        width: 250px;
+        height: 20px;
+        margin-left:10px;
+        position:absolute;
+        z-index:100;
+        display: inline-block;
+        text-align: center;
+        margin-top: -1px;
+    }
+    */
+  
