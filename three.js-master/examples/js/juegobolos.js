@@ -391,6 +391,7 @@
         function moverBola()
                         {
 
+                            if(!empiezaTirar){
                             //  mueve bola Arriba con tecla A
                             if (Key.isDown(Key.A))      
                             {
@@ -416,7 +417,8 @@
                                 }
                             }
                             // Empieza a preparar el tiro con potencia 
-                            else if (Key.isDown(Key.SPACE) && !tirar )
+                            }
+                            if (Key.isDown(Key.SPACE) && !tirar )
                             {
                                 //Controlador o bandera para saber si se ha soltado el boton SPACE para tirar bola (mirar siguiente else if)
                                 empiezaTirar = true;
@@ -474,7 +476,7 @@
                         tirar = false;
 
 
-	console.log("todosNiveles: "+ todosNiveles +" mostrarPuntuacion: "+mostrarPuntuacion);
+	   console.log("todosNiveles: "+ todosNiveles +" mostrarPuntuacion: "+mostrarPuntuacion);
 
                         if(todosNiveles==true && mostrarPuntuacion==false){
                             mostrarPuntuacion = true;
@@ -493,7 +495,7 @@
                            console.log("Tiradas: "+tiradas);
 
  						if(contadorPrimera != 10 && tiradas != 2){
- 							console.log("entra en primer if");
+ 							//console.log("entra en primer if");
  						//Reinicia valores para la segunda tirada
                             sphere.position.z = 35;
                             potencia = 0;
@@ -506,7 +508,17 @@
 
                     	}
                     	else{
-                    		console.log("entra en el else");
+                            alerta();
+
+                            function alerta(){
+                                //un alert
+                                alertify.alert("<b>Fin de Partida</b><br /><br /> Puntuación: "+contadorPrimera, function () {
+                                    //aqui introducimos lo que haremos tras cerrar la alerta.
+                                    location.href = 'http://proyectodsh2015.esy.es/three.js-master/examples';  
+                                });
+                            }
+
+                    		//console.log("entra en el else");
                     		tiradas = 0;
                     		contadorPrimera = 0;
                     		sphere.position.z = 35;
@@ -601,7 +613,7 @@
                     
                     
                     if(bola.position.x >= 1  &&  bola.position.x <= 8.5){                              
-                            objetoBolos[9].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[9].position.z -= 0.20*potencia;
                             
                             var aux = objetoBolos[9].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[9].rotation.z = aux;}
@@ -623,7 +635,7 @@
 
                         //Bolo izquierdo
                         if(bola.position.x >= -2 && bola.position.x <= 5.5){
-                            objetoBolos[7].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[7].position.z -= 0.20*potencia;
                             
                             var aux = objetoBolos[7].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[7].rotation.z = aux;}
@@ -638,7 +650,7 @@
 
                         //bolo derecho
                         if(bola.position.x >= 2  && bola.position.x <= 10.5 ){
-                            objetoBolos[8].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[8].position.z -= 0.20*potencia;
                         
                             var aux = objetoBolos[8].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[8].rotation.z = aux;}
@@ -659,7 +671,7 @@
 
                             //Bolo central
                             if(bola.position.x >= 0 && bola.position.x <= 9.5){
-                                objetoBolos[5].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[5].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[5].rotation.z + Math.random()*1.2;
                             	if(aux < 1.4) { objetoBolos[5].rotation.z = aux;}
@@ -673,7 +685,7 @@
 
                             //bolo izquierdo
                             if(bola.position.x >= -4 && bola.position.x <= 5.5){
-                                objetoBolos[4].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[4].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[4].rotation.z + Math.random()*1.2;
                             	if(aux < 1.4) { objetoBolos[4].rotation.z = aux;}
@@ -687,7 +699,7 @@
 
                             //bolo derecho
                             if(bola.position.x >= 4 && bola.position.x <= 13.5){
-                                objetoBolos[6].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[6].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[6].rotation.z + Math.random()*1.2;
                             	if(aux < 1.4) { objetoBolos[6].rotation.z = aux;}
@@ -708,7 +720,7 @@
 
                                 //Extremo izq, CR7
                                 if((bola.position.x >= -7 && bola.position.x <= 2.5|| premio)){
-                                    objetoBolos[0].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[0].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[0].rotation.z + Math.random()*1.2;
                             		if(aux < 1.4) { objetoBolos[0].rotation.z = aux;}
@@ -722,7 +734,7 @@
 
                                 //Media punta Izq
                                 if(bola.position.x >= -2 && bola.position.x <= 5.5){
-                                    objetoBolos[1].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[1].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[1].rotation.z + Math.random()*1.2;
                             		if(aux < 1.4) { objetoBolos[1].rotation.z = aux;}
@@ -736,7 +748,7 @@
 
                                 //Media punta Dcha
                                 if(bola.position.x >= 2  && bola.position.x <= 10.5) {
-                                    objetoBolos[2].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[2].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[2].rotation.z + Math.random()*1.2;
                             		if(aux < 1.4) { objetoBolos[2].rotation.z = aux;}
@@ -750,7 +762,7 @@
 
                                 //Extremo derecha
                                 if((bola.position.x >= 6 && bola.position.x <= 14.5) || premio){
-                                    objetoBolos[3].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[3].position.z -= 0.20*potencia;
                                     
                                     var aux = objetoBolos[3].rotation.z + Math.random()*1.2;
                             		if(aux < 1.4) { objetoBolos[3].rotation.z = aux;}

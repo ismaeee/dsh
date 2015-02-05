@@ -206,6 +206,10 @@
                     object.position.x = 9 + bloqueXbolos;
                     object.position.y = 0 + bloqueYbolos;
 					object.position.z = -18 + bloqueZbolos;
+                    objetoBolos[objetoBolos.length] = object;
+                    scene.add( object );
+
+                }, onProgress, onError );   
 /*
  ----------------------------------------------------------------------------------------------------------- 
  -----------------------------------------------------------------------------------------------------------
@@ -231,10 +235,7 @@
  */
 
 
-                    objetoBolos[objetoBolos.length] = object;
-                    scene.add( object );
-
-                }, onProgress, onError );    
+       
 
 
 
@@ -487,7 +488,7 @@ var baja = false;
                            console.log("Tiradas: "+tiradas);
 
  						if(contadorPrimera != 10 && tiradas != 2){
- 							console.log("entra en primer if");
+ 							//console.log("entra en primer if");
  						//Reinicia valores para la segunda tirada
                             sphere.position.z = 35;
                             potencia = 0;
@@ -500,7 +501,18 @@ var baja = false;
 
                     	}
                     	else{
-                    		console.log("entra en el else");
+
+                            alerta();
+
+                            function alerta(){
+                                //un alert
+                                alertify.alert("<b>Fin de Partida</b><br /><br /> Puntuación: "+contadorPrimera, function () {
+                                    //aqui introducimos lo que haremos tras cerrar la alerta.
+                                    location.href = 'http://proyectodsh2015.esy.es/three.js-master/examples/bolosDificil.html';  
+                                });
+                            }
+
+                    		//console.log("entra en el else");
                     		tiradas = 0;
                     		contadorPrimera = 0;
                     		sphere.position.z = 35;
@@ -595,7 +607,7 @@ var baja = false;
                     
                     
                     if(bola.position.x >= 1  &&  bola.position.x <= 8.5){                              
-                            objetoBolos[9].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[9].position.z -= 0.20*potencia;
                             
                             var aux = objetoBolos[9].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[9].rotation.z = aux;}
@@ -617,7 +629,7 @@ var baja = false;
 
                         //Bolo izquierdo
                         if(bola.position.x >= -2 && bola.position.x <= 5.5){
-                            objetoBolos[7].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[7].position.z -= 0.20*potencia;
                             
                             var aux = objetoBolos[7].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[7].rotation.z = aux;}
@@ -632,7 +644,7 @@ var baja = false;
 
                         //bolo derecho
                         if(bola.position.x >= 2  && bola.position.x <= 10.5 ){
-                            objetoBolos[8].position.z -= 0.07*potencia*Math.random();
+                            objetoBolos[8].position.z -= 0.20*potencia;
                         
                             var aux = objetoBolos[8].rotation.z + Math.random()*1.2;
                             if(aux < 1.4) { objetoBolos[8].rotation.z = aux;}
@@ -653,11 +665,11 @@ var baja = false;
 
                             //Bolo central
                             if(bola.position.x >= 0 && bola.position.x <= 9.5){
-                                objetoBolos[5].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[5].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[5].rotation.z + Math.random()*1.2;
-                            	if(aux < 1.4) { objetoBolos[5].rotation.z = aux;}
-	                            objetoBolos[5].rotation.y += Math.random()*0.5; 
+                                if(aux < 1.4) { objetoBolos[5].rotation.z = aux;}
+                                objetoBolos[5].rotation.y += Math.random()*0.5; 
                                 if(!fbolos[5]){
                                     objetoBolos[5].position.y = 3;
                                     fbolos[5] = true;
@@ -667,11 +679,11 @@ var baja = false;
 
                             //bolo izquierdo
                             if(bola.position.x >= -4 && bola.position.x <= 5.5){
-                                objetoBolos[4].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[4].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[4].rotation.z + Math.random()*1.2;
-                            	if(aux < 1.4) { objetoBolos[4].rotation.z = aux;}
-                            	objetoBolos[4].rotation.y += Math.random()*0.5; 
+                                if(aux < 1.4) { objetoBolos[4].rotation.z = aux;}
+                                objetoBolos[4].rotation.y += Math.random()*0.5; 
                                 if(!fbolos[4]){
                                     objetoBolos[4].position.y = 3;
                                     fbolos[4] = true;
@@ -681,11 +693,11 @@ var baja = false;
 
                             //bolo derecho
                             if(bola.position.x >= 4 && bola.position.x <= 13.5){
-                                objetoBolos[6].position.z -= 0.07*potencia*Math.random();
+                                objetoBolos[6].position.z -= 0.20*potencia;
                             
                                 var aux = objetoBolos[6].rotation.z + Math.random()*1.2;
-                            	if(aux < 1.4) { objetoBolos[6].rotation.z = aux;}
-                            	objetoBolos[6].rotation.y += Math.random()*0.5; 
+                                if(aux < 1.4) { objetoBolos[6].rotation.z = aux;}
+                                objetoBolos[6].rotation.y += Math.random()*0.5; 
                                 if(!fbolos[6]){
                                     objetoBolos[6].position.y = 3;
                                     fbolos[6] = true;
@@ -702,11 +714,11 @@ var baja = false;
 
                                 //Extremo izq, CR7
                                 if((bola.position.x >= -7 && bola.position.x <= 2.5|| premio)){
-                                    objetoBolos[0].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[0].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[0].rotation.z + Math.random()*1.2;
-                            		if(aux < 1.4) { objetoBolos[0].rotation.z = aux;}
-                            		objetoBolos[0].rotation.y += Math.random()*0.5; 
+                                    if(aux < 1.4) { objetoBolos[0].rotation.z = aux;}
+                                    objetoBolos[0].rotation.y += Math.random()*0.5; 
                                     if(!fbolos[0]){
                                         objetoBolos[0].position.y = 3;
                                         fbolos[0] = true;
@@ -716,11 +728,11 @@ var baja = false;
 
                                 //Media punta Izq
                                 if(bola.position.x >= -2 && bola.position.x <= 5.5){
-                                    objetoBolos[1].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[1].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[1].rotation.z + Math.random()*1.2;
-                            		if(aux < 1.4) { objetoBolos[1].rotation.z = aux;}
-		                            objetoBolos[1].rotation.y += Math.random()*0.5;  
+                                    if(aux < 1.4) { objetoBolos[1].rotation.z = aux;}
+                                    objetoBolos[1].rotation.y += Math.random()*0.5;  
                                     if(!fbolos[1]){
                                         objetoBolos[1].position.y = 3;                                    
                                         fbolos[1] = true;
@@ -730,11 +742,11 @@ var baja = false;
 
                                 //Media punta Dcha
                                 if(bola.position.x >= 2  && bola.position.x <= 10.5) {
-                                    objetoBolos[2].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[2].position.z -= 0.20*potencia;
                                 
                                     var aux = objetoBolos[2].rotation.z + Math.random()*1.2;
-                            		if(aux < 1.4) { objetoBolos[2].rotation.z = aux;}
-		                            objetoBolos[2].rotation.y += Math.random()*0.5; 
+                                    if(aux < 1.4) { objetoBolos[2].rotation.z = aux;}
+                                    objetoBolos[2].rotation.y += Math.random()*0.5; 
                                     if(!fbolos[2]){     
                                         objetoBolos[2].position.y = 3;                               
                                         fbolos[2] = true;
@@ -744,11 +756,11 @@ var baja = false;
 
                                 //Extremo derecha
                                 if((bola.position.x >= 6 && bola.position.x <= 14.5) || premio){
-                                    objetoBolos[3].position.z -= 0.07*potencia*Math.random();
+                                    objetoBolos[3].position.z -= 0.20*potencia;
                                     
                                     var aux = objetoBolos[3].rotation.z + Math.random()*1.2;
-                            		if(aux < 1.4) { objetoBolos[3].rotation.z = aux;}
-		                            objetoBolos[3].rotation.y += Math.random()*0.5; 
+                                    if(aux < 1.4) { objetoBolos[3].rotation.z = aux;}
+                                    objetoBolos[3].rotation.y += Math.random()*0.5; 
                                     if(!fbolos[3]){
                                         objetoBolos[3].position.y = 3;
                                         fbolos[3] = true;
@@ -761,3 +773,5 @@ var baja = false;
             }//Fin1
         }//FinMetodo
     });
+
+
